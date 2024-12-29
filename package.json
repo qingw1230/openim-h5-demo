@@ -10,6 +10,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@vant/touch-emulator": "^1.4.0",
     "@vuemap/vue-amap": "^2.0.5",
     "@vueuse/core": "^9.10.0",
     "absurd-sql-optimized": "^0.0.1",

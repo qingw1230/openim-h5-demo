@@ -1,5 +1,6 @@
 <template>
   <div class="page_container px-10 relative">
+    <!-- 点击后回到上一步 -->
     <img class="w-6 h-6 mt-[5vh]" :src="login_back" alt="" @click="$router.back">
 
     <div class="text-2xl text-primary font-semibold mt-12">{{ $t('placeholder.inputVerificationCode') }}</div>
@@ -13,6 +14,7 @@
         @focus="showKeyboard = true" />
     </div>
 
+    <!-- 重新发送验证码 -->
     <div class="text-sub-text text-xs mt-4">
       <span v-if="count > 0">{{ count }}S</span>
       <span @click="reSend">{{ $t('reAcquire') }}</span>
@@ -27,6 +29,7 @@ import { UsedFor } from '@/api/data'
 import { sendSms, verifyCode } from '@/api/login'
 import { feedbackToast } from '@/utils/common'
 import login_back from '@assets/images/login_back.png'
+import '@vant/touch-emulator'; // 解决在 PC 无法输入验证码问题
 
 export interface BaseData {
   areaCode: string
@@ -90,6 +93,7 @@ const reSend = () => {
     .catch(error => feedbackToast({ message: t('messageTip.sendCodeFailed'), error }))
 }
 
+// 当验证码输入完成后自动提交
 watch(verificationCode, (newVal) => {
   if (newVal.length === 6) {
     onSubmit()

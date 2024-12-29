@@ -48,6 +48,7 @@
     <div class="text-xs absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col w-[300px] items-center">
       <div class="flex flex-row text-primary">
         <div class="text-sub-text">{{ $t('notHaveAccount') }}</div>
+        <!-- 点击后跳转到注册页面 -->
         <div @click="getCode(true)">{{ $t('nowRegister') }}</div>
       </div>
       <div class="text-sub-text">{{ version }}</div>

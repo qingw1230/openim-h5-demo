@@ -5,6 +5,7 @@
     <div class="text-2xl text-primary font-semibold my-12">{{ isRegiste ? $t('register') : $t('forgetPasswordTitle') }}
     </div>
 
+    <!-- 点击下一步按钮，执行 obSubmit 函数 -->
     <van-form @submit="onSubmit">
       <div>
         <div class="text-sm mb-1 text-sub-text">{{ $t('cellphone') }}</div>
@@ -64,6 +65,7 @@ import countryCode from '@/utils/areaCode'
 import { feedbackToast } from '@/utils/common';
 import login_back from '@assets/images/login_back.png'
 
+// 手机号格式
 const phoneRegExp = /^1[3-9]\d{9}$/
 
 const { t } = useI18n()
@@ -85,6 +87,7 @@ let timer: NodeJS.Timer
 const needInvitationCode = computed(() => !!userStore.storeAppConfig.needInvitationCodeRegister)
 
 const onSubmit = () => {
+  // 验证手机号格式是否正确
   if (!phoneRegExp.test(formData.phoneNumber)) {
     feedbackToast({
       message: t('messageTip.correctPhoneNumber'),
@@ -92,6 +95,7 @@ const onSubmit = () => {
     })
     return
   }
+  // 邀请码逻辑
   if (needInvitationCode && formData.invitationCode) {
     feedbackToast({
       message: t('messageTip.invitationCode'),
@@ -106,6 +110,7 @@ const onSubmit = () => {
   })
     .then(() => {
       if (props.isRegiste) {
+        // 跳转到校验验证码界面
         router.push({
           path: 'verifyCode',
           query: {
