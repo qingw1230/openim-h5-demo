@@ -4,6 +4,7 @@
 
     <div class="text-2xl text-primary font-semibold mt-12">{{ $t('setInfo') }}</div>
 
+    <!-- 昵称输入框 -->
     <div class="mt-20">
       <div class="text-sm mb-1 text-sub-text">{{ $t('name') }}</div>
       <div class="border border-gap-text rounded-lg">
@@ -13,6 +14,7 @@
       </div>
     </div>
 
+    <!-- 密码输入框 -->
     <div class="mt-5">
       <div class="text-sm mb-1 text-sub-text">{{ $t('password') }}</div>
       <div class="border border-gap-text rounded-lg">
@@ -23,6 +25,7 @@
       <div class="text-xs mt-0.5 text-sub-text">{{ $t('passwordRequired') }}</div>
     </div>
 
+    <!-- 确认密码输入框 -->
     <div class="mt-5">
       <div class="text-sm mb-1 text-sub-text">{{ $t('confirmPassword') }}</div>
       <div class="border border-gap-text rounded-lg">
@@ -32,6 +35,7 @@
       </div>
     </div>
 
+    <!-- 注册按钮 -->
     <div class="mt-28">
       <van-button block type="primary" native-type="submit" :loading="loading" @click="login">
         {{ $t('nowRegister') }}
