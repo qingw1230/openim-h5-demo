@@ -1,9 +1,7 @@
-export const setTMToken = (token: string) =>
-  localStorage.setItem("IM_TOKEN", token);
-export const setChatToken = (token: string) =>
-  localStorage.setItem("IM_CHAT_TOKEN", token);
-export const setTMUserID = (userID: string) =>
-  localStorage.setItem("IM_USERID", userID);
+export const setIMToken = (token: string) => localStorage.setItem("IM_TOKEN", token);
+export const setChatToken = (token: string) => localStorage.setItem("IM_CHAT_TOKEN", token);
+export const setIMUserID = (userID: string) => localStorage.setItem("IM_USERID", userID);
+
 export const setAccessedFriendApplication = (list: string[]) =>
   localStorage.setItem(
     `${getIMUserID()}_accessedFriendApplications`,
@@ -15,10 +13,11 @@ export const setAccessedGroupApplication = (list: string[]) =>
     JSON.stringify(list)
   );
 
+// 将 chatToken imToken userID 保存到浏览器本地
 export const setIMProfile = ({ chatToken, imToken, userID }: any) => {
-  setTMToken(imToken);
   setChatToken(chatToken);
-  setTMUserID(userID);
+  setIMToken(imToken);
+  setIMUserID(userID);
 };
 
 export const clearIMProfile = () => {

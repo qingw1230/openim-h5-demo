@@ -46,7 +46,6 @@ export const modify = (params: ModifyPasswordParams) =>
     })
   );
 
-// new
 export const login = (params: DemoLoginParams) => {
   return request.post(
     "/account/login",
@@ -54,7 +53,7 @@ export const login = (params: DemoLoginParams) => {
       ...params,
       verifyCode: "666666",
       deviceID: "",
-      platform: 5,
+      platform: 5, // web 端
       account: "",
     })
   );

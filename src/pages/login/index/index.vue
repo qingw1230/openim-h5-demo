@@ -1,9 +1,11 @@
 <template>
   <div class="page_container !bg-white px-10 relative">
+    <!-- logo -->
     <img class="w-16 h-16 mx-auto mt-[88px]" src="@assets/images/logo.png" alt="">
     <div class=" text-lg font-semibold mx-auto text-primary">{{ $t('welcome') }}</div>
 
     <van-form @submit="onSubmit" class="mt-[76px]">
+      <!-- TODO(qingw1230): 使用 vant rules 在前端加校验规则-->
       <div>
         <div class="text-sm mb-1 text-sub-text">{{ $t('cellphone') }}</div>
         <div class="border border-gap-text rounded-lg flex items-center">
@@ -16,24 +18,11 @@
         </div>
       </div>
 
-      <div class="mt-5" v-if="isByPassword">
+      <div class="mt-5">
         <div class="text-sm mb-1 text-sub-text">{{ $t('password') }}</div>
         <div class="border border-gap-text rounded-lg">
           <van-field class="!py-1" clearable v-model="formData.password" name="password" type="password"
             :placeholder="$t('placeholder.inputPassword')" />
-        </div>
-      </div>
-
-      <div class="mt-5" v-else>
-        <div class="text-sm mb-1 text-sub-text">{{ $t('reAcquireDesc') }}</div>
-        <div class="border border-gap-text rounded-lg">
-          <van-field class="!py-1" clearable v-model="formData.verificationCode" name="verificationCode" type="text"
-            :placeholder="$t('placeholder.inputVerificationCode')">
-            <template #button>
-              <span class="text-primary" @click="reSend" v-if="count <= 0">{{ $t('buttons.verificationCode') }}</span>
-              <span class="text-primary" v-else>{{ count }}S</span>
-            </template>
-          </van-field>
         </div>
       </div>
 
@@ -45,13 +34,14 @@
       </div>
     </van-form>
 
-    <div class="text-xs absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col w-[300px] items-center">
+    <!-- 登录界面最下方注册部分 -->
+    <div class="text-xs absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col">
+      <!-- text-primary text-sub-text 配色相关 -->
       <div class="flex flex-row text-primary">
         <div class="text-sub-text">{{ $t('notHaveAccount') }}</div>
         <!-- 点击后跳转到注册页面 -->
         <div @click="getCode(true)">{{ $t('nowRegister') }}</div>
       </div>
-      <div class="text-sub-text">{{ version }}</div>
     </div>
 
     <van-popup v-model:show="showAreaCode" round position="bottom">
@@ -64,7 +54,7 @@
 
 <script setup lang='ts'>
 import md5 from 'md5';
-import type { PickerConfirmEventParams, } from 'vant';
+import type { PickerConfirmEventParams } from 'vant';
 import { login, sendSms } from '@/api/login';
 import countryCode from '@/utils/areaCode'
 import { feedbackToast } from '@/utils/common';
@@ -91,6 +81,7 @@ let timer: NodeJS.Timer
 
 const onSubmit = async () => {
   loading.value = true
+  // 将用户手机号保存到浏览器
   localStorage.setItem("IMAccount", formData.phoneNumber)
   try {
     const { data: { chatToken, imToken, userID } } = await login({
@@ -98,8 +89,9 @@ const onSubmit = async () => {
       password: md5(formData.password),
       areaCode: formData.areaCode
     })
-
+    
     setIMProfile({ chatToken, imToken, userID })
+    // 登录成功后跳转到 conversation 界面
     router.push('/conversation')
   } catch (error) {
     feedbackToast({ message: t('messageTip.loginFailed'), error })
