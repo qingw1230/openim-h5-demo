@@ -105,11 +105,6 @@ const contactRouters: Array<RouteRecordRaw> = [
     name: "SearchFriendOrGroup",
     component: () => import("@pages/contact/searchFriendOrGroup/index.vue"),
   },
-  {
-    path: "/scanPage",
-    name: "ScanPage",
-    component: () => import("@pages/contact/scanPage/index.vue"),
-  },
 ];
 
 export default contactRouters;

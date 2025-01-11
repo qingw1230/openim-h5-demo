@@ -21,15 +21,15 @@
         </view>
       </div>
     </div>
+
+    <!-- 会话列表界面右上角加号 -->
     <div class="flex">
-      <!-- <img :src="call" alt="call" width="24" class="mr-2" /> -->
       <van-popover :show-arrow="false" v-model:show="showPopover" :actions="conversationTopMoreActions"
         placement="bottom-end" @select="selectMenu">
         <template #reference>
           <img :src="add" alt="add" width="24" />
         </template>
       </van-popover>
-
     </div>
   </div>
 </template>
@@ -37,7 +37,6 @@
 <script setup lang='ts'>
 import add_friend from "@/assets/images/conversation/add_friend.png";
 import add_group from "@/assets/images/conversation/add_group.png";
-import scan from "@/assets/images/conversation/scan.png";
 import create_group from "@/assets/images/conversation/create_group.png";
 import Avatar from '@/components/Avatar/index.vue';
 import add from '@/assets/images/conversation/add.png'
@@ -49,7 +48,6 @@ import { IMSDK } from '@/utils/imCommon';
 import { GroupType, CbEvents } from 'open-im-sdk-wasm';
 
 enum ActionEnum {
-  Scan,
   AddFriend,
   AddGroup,
   LaunchGroup
@@ -64,10 +62,6 @@ enum connectStateEnum {
 const { t, locale } = useI18n();
 
 const conversationTopMoreActions: PopoverAction[] = [
-  {
-    text: t("scanQr"),
-    icon: scan,
-  },
   {
     text: t("addFriend"),
     icon: add_friend,
@@ -84,10 +78,9 @@ const conversationTopMoreActions: PopoverAction[] = [
 
 
 watch(locale, () => {
-  conversationTopMoreActions[0].text = t("scanQr");
-  conversationTopMoreActions[1].text = t("addFriend");
-  conversationTopMoreActions[2].text = t("addGroup");
-  conversationTopMoreActions[3].text = t("launchGroup");
+  conversationTopMoreActions[0].text = t("addFriend");
+  conversationTopMoreActions[1].text = t("addGroup");
+  conversationTopMoreActions[2].text = t("launchGroup");
 });
 
 const userStore = useUserStore()
@@ -114,9 +107,6 @@ onBeforeUnmount(() => {
 
 const selectMenu = (_: PopoverAction, idx: ActionEnum) => {
   switch (idx) {
-    case ActionEnum.Scan:
-      router.push('scanPage')
-      break;
     case ActionEnum.AddFriend:
     case ActionEnum.AddGroup:
       router.push({

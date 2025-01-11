@@ -2,8 +2,8 @@
   <div class="page_container">
     <NavBar :title="$t('add')" />
 
+    <!-- 通讯录界面右上角加号菜单选项 -->
     <div class="mt-[10px]"></div>
-    <AddMenuItem :icon="add_scan" :title="$t('scanQr')" :sub-title="$t('scanQrCodeDesc')" @click="$router.push('scanPage')" border />
     <AddMenuItem :icon="add_search_user" :title="$t('addFriend')" :sub-title="$t('addFriendDesc')" border
       @click="$router.push({ path: 'searchToJoin', query: { isGroup: 'false' } })" />
     <AddMenuItem :icon="add_create_group" :title="$t('createGroup')" :sub-title="$t('createGroupDesc')" border
